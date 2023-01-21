@@ -5,11 +5,15 @@
 #include <stdio.h>
 #include <string.h>
 
+#ifndef ui_t
+    #define ui_t unsigned int
+#endif
+
 typedef struct _Node Node;
 
 struct _Node
 {
-    char* tag;
+    ui_t tag;
     float amp, freq;
     struct _Node* last;
 };
@@ -31,5 +35,6 @@ void Node_free(Node* node);
 void NodeList_init(NodeList* list);
 void NodeList_add(NodeList* list, Node* node);
 Node* NodeList_find(NodeList* list, const char* tag);
+void NodeList_free(NodeList* list);
 
 #endif //NODE_SYSTEM_H

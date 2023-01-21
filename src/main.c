@@ -24,7 +24,11 @@ int main(void)
     another->amp=3;
     another->freq=5;
     
+    NodeList_free(&list);
+    
     Node* output = Node_new("output");
+    
+    Node_free(output);
 
     for(int i = 0; i < list.size; i++)
     {

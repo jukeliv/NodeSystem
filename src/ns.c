@@ -1,16 +1,27 @@
 #include "../include/ns.h"
 
+ui_t hash(const char* str)
+{
+    ui_t x = strlen(str);
+    for(int i = 0; i < strlen(str); i++)
+    {
+        x+=str[i] - str[i]*0.1f;
+        x*=str[i]*i*3;
+    }
+    return x%4294967295*strlen(str);
+}
+
 Node* Node_new(const char* tag)
 {
     Node* node = (Node*)malloc(sizeof(Node));
     node->last = NULL;
-    node->tag = strdup(tag);
+    node->tag = hash(tag);
     return node;
 }
 
 void Node_free(Node* node)
 {
-    free(node->tag);
+    free(node->last);
 }
 
 void NodeList_init(NodeList* list)
@@ -44,7 +55,7 @@ Node* NodeList_find(NodeList* list, const char* tag)
     }
     for(int i = 0; i < list->size; i++)
     {
-        if(!strcmp(list->nodes[i].tag, tag))
+        if(list->nodes[i].tag == hash(tag))
         {
             return &list->nodes[i];
         }
@@ -52,4 +63,12 @@ Node* NodeList_find(NodeList* list, const char* tag)
     
     fprintf(stderr, "Couldn't find \"%s\"", tag);
     return NULL;
+}
+
+void NodeList_free(NodeList* list)
+{
+    for(int i = 0; i < list->size; i++)
+    {
+        Node_free(&list->nodes[i]);
+    }
 }
