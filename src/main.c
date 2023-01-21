@@ -5,7 +5,6 @@ int main(void)
     NodeList list;
     NodeList_init(&list);
     
-    //it works when you call it once but not when you do it twice?
     NodeList_add(&list, Node_new("root"));
     NodeList_add(&list, Node_new("another"));
 
@@ -16,6 +15,7 @@ int main(void)
     }
     root->amp = 10;
     root->freq = 5;
+
     Node* another = NodeList_find(&list, "another");
     if(!another)
     {
@@ -35,6 +35,9 @@ int main(void)
         output->amp += list.nodes[i].amp;
         output->freq += list.nodes[i].freq;
     }
-    printf("(%f, %f)\n", output->amp, output->freq);
+    printf("(amp: %f, freq: %f)\n", output->amp, output->freq);
+
+    getchar();
+
     return 0;
 }

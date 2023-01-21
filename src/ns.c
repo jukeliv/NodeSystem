@@ -1,8 +1,9 @@
 #include "../include/ns.h"
 
-ui_t hash(const char* str)
+//hash function cuz i hate strings
+unsigned int hash(const char* str)
 {
-    ui_t x = strlen(str);
+    unsigned int x = strlen(str);
     for(int i = 0; i < strlen(str); i++)
     {
         x+=str[i] - str[i]*0.1f;
@@ -11,11 +12,11 @@ ui_t hash(const char* str)
     return x%4294967295*strlen(str);
 }
 
-Node* Node_new(const char* tag)
+Node* Node_new(const char* id)
 {
     Node* node = (Node*)malloc(sizeof(Node));
     node->last = NULL;
-    node->tag = hash(tag);
+    node->id = hash(id);
     return node;
 }
 
@@ -46,7 +47,7 @@ void NodeList_add(NodeList* list, Node* node)
     }
 }
 
-Node* NodeList_find(NodeList* list, const char* tag)
+Node* NodeList_find(NodeList* list, const char* id)
 {
     if(list->size < 1)
     {
@@ -55,13 +56,13 @@ Node* NodeList_find(NodeList* list, const char* tag)
     }
     for(int i = 0; i < list->size; i++)
     {
-        if(list->nodes[i].tag == hash(tag))
+        if(list->nodes[i].id == hash(id))
         {
             return &list->nodes[i];
         }
     }
     
-    fprintf(stderr, "Couldn't find \"%s\"", tag);
+    fprintf(stderr, "Couldn't find \"%s\"", id);
     return NULL;
 }
 

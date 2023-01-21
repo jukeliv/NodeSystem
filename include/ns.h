@@ -1,19 +1,14 @@
-#ifndef NODE_SYSTEM_H
-#define NODE_SYSTEM_H
+#pragma once
 
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 
-#ifndef ui_t
-    #define ui_t unsigned int
-#endif
-
 typedef struct _Node Node;
 
 struct _Node
 {
-    ui_t tag;
+    unsigned int id;
     float amp, freq;
     struct _Node* last;
 };
@@ -29,12 +24,9 @@ struct _NodeList
 
 typedef struct _NodeList NodeList;
 
-Node* Node_new(const char* tag);
+Node* Node_new(const char* id);
 void Node_free(Node* node);
-
 void NodeList_init(NodeList* list);
 void NodeList_add(NodeList* list, Node* node);
-Node* NodeList_find(NodeList* list, const char* tag);
+Node* NodeList_find(NodeList* list, const char* id);
 void NodeList_free(NodeList* list);
-
-#endif //NODE_SYSTEM_H
