@@ -7,15 +7,16 @@ int main(void)
     
     //it works when you call it once but not when you do it twice?
     NodeList_add(&list, Node_new("root"));
-    NodeList_add(&list, Node_new("lol"));
+    NodeList_add(&list, Node_new("another"));
 
-    printf("epic");
     Node* root = NodeList_find(&list, "root");
     if(!root)
     {
         return -1;
     }
-    Node* another = NodeList_find(&list, "lol");
+    root->amp = 10;
+    root->freq = 5;
+    Node* another = NodeList_find(&list, "another");
     if(!another)
     {
         return -2;

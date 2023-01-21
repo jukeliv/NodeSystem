@@ -4,7 +4,7 @@ Node* Node_new(const char* tag)
 {
     Node* node = (Node*)malloc(sizeof(Node));
     node->last = NULL;
-    strcpy(node->tag, tag);
+    node->tag = strdup(tag);
     return node;
 }
 
@@ -17,7 +17,6 @@ void NodeList_init(NodeList* list)
 {
     list->heap_size = 1;
     list->size = 0;
-    
     list->nodes = (Node*) malloc(sizeof(Node));
 }
 
