@@ -23,24 +23,22 @@ void NodeList_init(NodeList* list)
 
 void NodeList_add(NodeList* list, Node* node)
 {
-    while(list->size >= list->heap_size)
-    {
-        list->heap_size*=2;
-        list->nodes=(Node*)realloc(list->nodes, sizeof(Node)*list->heap_size);
+    while (list->size >= list->heap_size) {
+        list->heap_size *= 2;
+        list->nodes = (Node*)realloc(list->nodes, sizeof(Node) * list->heap_size);
     }
 
     list->nodes[list->size++] = *node;
     
-    if(list->size>1)
+    if(list->size>2)
     {
-        list->nodes[list->size-1].last = (Node*)malloc(sizeof(Node));
         list->nodes[list->size-1].last = &list->nodes[list->size-2];
     }
 }
 
 Node* NodeList_find(NodeList* list, const char* tag)
 {
-    if(list->size < 0)
+    if(list->size < 1)
     {
         fprintf(stderr, "NULL List\n");
         return NULL;
